@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}AnimaFlix - Catálogo de Animes{% endblock %}
+
+{% block content %}
+    <h2 class="section-title">Catálogo Completo</h2>
+
+    {% if catalog %}
+        <div class="episodes-grid">
+            {% for anime in catalog %}
+                <a href="{{ url_for('watch', url=anime.link) }}" class="episode-card">
+                    <div class="card-image">
+                        <img src="{{ anime.image_url }}" alt="Capa de {{ anime.title }}">
+                        <div class="overlay">
+                            <span>▶</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ anime.title }}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="error-message">
+            <p>Não foi possível carregar o catálogo de animes no momento.</p>
+        </div>
+    {% endif %}
+{% endblock %}

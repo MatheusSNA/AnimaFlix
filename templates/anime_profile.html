@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}AnimaFlix - {{ anime.title }}{% endblock %}
+
+{% block content %}
+<div class="anime-profile-container">
+    <div class="anime-info-header">
+        <div class="anime-cover">
+            <img src="{{ anime.image_url }}" alt="Capa de {{ anime.title }}">
+        </div>
+        <div class="anime-details">
+            <div class="mr-2 d-inline-block div_anime_names">
+                <h1 class="quicksand400 mt-2 mb-0">{{ anime.title }}</h1>
+                {% if anime.english_title %}
+                <h6 class="text-gray mb-0">{{ anime.english_title }}</h6>
+                {% endif %}
+                {% if anime.japanese_title %}
+                <h6 class="text-gray" style="margin-top:3px">{{ anime.japanese_title }}</h6>
+                {% endif %}
+            </div>
+            <div class="anime-synopsis-box">
+                <p class="anime-synopsis">{{ anime.synopsis }}</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="mt-3 mb-2 anime-episodes-section">
+    <div class="div_video_list_arrow">
+        <h2 class="section-title">Episódios</h2>
+    </div>
+    <div class="div_video_list">
+        {% for episode in anime.episodes %}
+            <a class="episode-item" href="{{ url_for('watch', url=episode.link) }}">
+                {{ anime.title }} - Episódio {{ episode.episode_number }}
+            </a>
+        {% endfor %}
+    </div>
+    </section>
+</div>
+{% endblock %}

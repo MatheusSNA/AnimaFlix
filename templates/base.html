@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AnimaFlix{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">Anima<span>Flix</span></a>
+            </div>
+            <div class="search-form-container">
+                <form action="{{ url_for('search') }}" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="Buscar animes..." value="{{ query or '' }}" required>
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 AnimaFlix - Todos os direitos reservados. Projeto de demonstração.</p>
+    </footer>
+</body>
+</html>

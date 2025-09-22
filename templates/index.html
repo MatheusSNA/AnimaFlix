@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}AnimaFlix - Últimos Lançamentos{% endblock %}
+
+{% block content %}
+    <div class="content-header">
+        <h2 class="section-title">Últimos Episódios Lançados</h2>
+        <a href="{{ url_for('catalog') }}" class="btn-catalog">Ver Catálogo Completo</a>
+    </div>
+
+    {% if latest_episodes %}
+        <div class="episodes-grid">
+            {% for episode in latest_episodes %}
+                <a href="{{ url_for('watch', url=episode.link) }}" class="episode-card">
+                    <div class="card-image">
+                        <img src="{{ episode.image_url }}" alt="Capa de {{ episode.title }}">
+                        <div class="overlay">
+                            <span>▶</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ episode.title }}</h3>
+                        <p class="card-text">{{ episode.episode_number }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="error-message">
+            <p>Não foi possível carregar os lançamentos. A API pode estar offline.</p>
+        </div>
+    {% endif %}
+{% endblock %}

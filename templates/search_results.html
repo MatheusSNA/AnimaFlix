@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultados para "{{ query }}"{% endblock %}
+
+{% block content %}
+    <h2 class="section-title">Resultados da Busca para "{{ query }}"</h2>
+
+    {% if search_results %}
+        <div class="episodes-grid">
+            {% for anime in search_results %}
+                <a href="{{ url_for('anime_profile', url=anime.link) }}" class="episode-card">
+                    <div class="card-image">
+                        <img src="{{ anime.image_url }}" alt="Capa de {{ anime.title }}">
+                        <div class="overlay"><span>▶</span></div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ anime.title }}</h3>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="error-message">
+            <p>Nenhum resultado encontrado para "{{ query }}".</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Assistindo Agora{% endblock %}
+
+{% block content %}
+    <div class="watch-container">
+        <h2 class="section-title">Assistindo Episódio</h2>
+        
+        <div class="video-player-container">
+            <div id="loading-spinner" class="spinner" style="display: block;"></div>
+            <video id="video-player" controls preload="auto" style="display: none;"></video>
+            <div id="error-message" class="error-message" style="display: none;">
+                <p>Não foi possível carregar o vídeo.</p>
+            </div>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-link">← Voltar para a Página Inicial</a>
+
+        {% if video_proxy_link %}
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const spinner = document.getElementById('loading-spinner');
+                    const videoPlayer = document.getElementById('video-player');
+                    const errorMessage = document.getElementById('error-message');
+
+                    const source = document.createElement('source');
+                    source.src = "{{ video_proxy_link }}";
+                    source.type = "video/mp4";
+                    videoPlayer.appendChild(source);
+
+                    videoPlayer.addEventListener('loadeddata', function() {
+                        spinner.style.display = 'none';
+                        videoPlayer.style.display = 'block';
+                        videoPlayer.play();
+                    });
+
+                    videoPlayer.addEventListener('error', function() {
+                        spinner.style.display = 'none';
+                        errorMessage.style.display = 'block';
+                    });
+
+                    videoPlayer.load();
+                });
+            </script>
+        {% else %}
+            <script>
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('error-message').style.display = 'block';
+            </script>
+        {% endif %}
+    </div>
+{% endblock %}
